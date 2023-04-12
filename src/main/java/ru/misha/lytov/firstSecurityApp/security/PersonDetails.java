@@ -1,10 +1,12 @@
 package ru.misha.lytov.firstSecurityApp.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.misha.lytov.firstSecurityApp.models.Person;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class PersonDetails implements UserDetails {
 
@@ -16,7 +18,8 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {// список прав
-        return null;
+
+        return Collections.singleton(new SimpleGrantedAuthority(person.getRole()));
     }
 
     @Override

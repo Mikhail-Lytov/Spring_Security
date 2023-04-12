@@ -25,11 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        //концигурируем сам Spring Security
-        //конфигурируем авторизацию
         http.authorizeRequests()
-                .antMatchers("/auth/login","/auth/registration", "/error").permitAll()//куда может попасть
-                .anyRequest().authenticated() // для всех других запросов, должен быть авторизвован
+                .antMatchers("/admin" ).hasRole("ADMIN")
+                .antMatchers("/auth/login","/auth/registration", "/error").permitAll()
+                .anyRequest().hasAnyRole("USER","ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
